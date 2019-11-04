@@ -11,90 +11,90 @@ db.enablePersistence()
       console.log('persistance not available');
     }
   });
-function renderNotes(doc) {
-  $("#name_notes").append(
-    '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" ><div data-toggle="modal" data-target="#' + change.doc.data().name.replace(/\s+/g, '') + '" class="card border-info mb-3" style="cursor: pointer; max-width: 30rem;"><div class="card-header"><h6 class="card-title"></h6></div><div class="card-body text-center"><p class="card-text" id="lblName' + change.doc.data().name.replace(/\s+/g, '') + '">' + change.doc.data().name + '</p> </div> <div class="card-footer text-center"> </div></div></div><div class="modal" id="' + change.doc.data().name.replace(/\s+/g, '') + '"><div class="modal-dialog modal-lg"><div class="modal-content"><!-- Modal Header --><div class="modal-header"><h4 class="modal-title">' + change.doc.data().name + '</h4><div><small>' + change.doc.data().location + '</small><br><small id="timeyourpost">'+change.doc.data().timepost+'</small></div> </div><!-- Modal body --><div class="modal-body"><pre>' + change.doc.data().content + '</pre><br><br><div><img id="imgNote' + change.doc.data().name + '" style="width: 60% ; height: 100%; margin-left: 25%"></div><br><!-- Modal footer --><div class="modal-footer"><button type="button" style="width: 70px;height: 50px;" class="btn btn-outline-info">Sửa</button><button type="button" style="width: 70px;height: 50px;" class="btn btn-outline-info" data-toggle="modal" onclick = "deleteNote(\'' + change.doc.data().name.replace(/\s+/g, '') + '\')">Xóa</button>'
-    + '<button type="button" style="width: 70px;height: 50px;" class="btn btn-outline-info" data-dismiss="modal">Thoát</button></div></div></div></div>'
-    + '<div class="modal fade" id="XoaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'
-    + '<div class="modal-dialog" role="document">'
-    + '<div class="modal-content">'
-    + '<div class="modal-header">'
-    + '<h5 class="modal-title" id="exampleModalLabel">Delete</h5>'
-    + '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'
-    + '<span class="material-icons" aria-hidden="true">help_outline</span>'
-    + '</button>'
-    + '</div>'
-    + '<div class="modal-body"> <i class="material-icons"  >delete_forever</i>'
-    + 'Do you really  want to delete?'
-    + '</div>'
-    + '<div class="modal-footer">'
-    + '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
-    + '<button type="button" class="btn btn-primary" >Delete</button>'
-    + '</div>'
-    + '</div>'
-    + '</div>'
-    + '</div>'
-  );
-  
-}
-firebase.auth().onAuthStateChanged(function (user) {
-  if (user) {
+// function renderNotes(doc) {
+//   $("#name_notes").append(
+//     '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" ><div data-toggle="modal" data-target="#' + change.doc.data().name.replace(/\s+/g, '') + '" class="card border-info mb-3" style="cursor: pointer; max-width: 30rem;"><div class="card-header"><h6 class="card-title"></h6></div><div class="card-body text-center"><p class="card-text" id="lblName' + change.doc.data().name.replace(/\s+/g, '') + '">' + change.doc.data().name + '</p> </div> <div class="card-footer text-center"> </div></div></div><div class="modal" id="' + change.doc.data().name.replace(/\s+/g, '') + '"><div class="modal-dialog modal-lg"><div class="modal-content"><!-- Modal Header --><div class="modal-header"><h4 class="modal-title">' + change.doc.data().name + '</h4><div><small>' + change.doc.data().location + '</small><br><small id="timeyourpost">' + change.doc.data().timepost + '</small></div> </div><!-- Modal body --><div class="modal-body"><pre>' + change.doc.data().content + '</pre><br><br><div><img id="imgNote' + change.doc.data().name + '" style="width: 60% ; height: 100%; margin-left: 25%"></div><br><!-- Modal footer --><div class="modal-footer"><button type="button" style="width: 70px;height: 50px;" class="btn btn-outline-info">Sửa</button><button type="button" style="width: 70px;height: 50px;"  class="btn btn-outline-info" data-toggle="modal" onclick = "deleteNote(\'' + change.doc.data().name.replace(/\s+/g, '') + '\')">Xóa</button>'
+//     + '<button type="button" style="width: 70px;height: 50px;" class="btn btn-outline-info" data-dismiss="modal">Thoát</button></div></div></div></div>'
+//     + '<div class="modal fade" id="XoaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'
+//     + '<div class="modal-dialog" role="document">'
+//     + '<div class="modal-content">'
+//     + '<div class="modal-header">'
+//     + '<h5 class="modal-title" id="exampleModalLabel">Delete</h5>'
+//     + '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'
+//     + '<span class="material-icons" aria-hidden="true">help_outline</span>'
+//     + '</button>'
+//     + '</div>'
+//     + '<div class="modal-body"> <i class="material-icons"  >delete_forever</i>'
+//     + 'Do you really  want to delete?'
+//     + '</div>'
+//     + '<div class="modal-footer">'
+//     + '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
+//     + '<button type="button" class="btn btn-primary" >Delete</button>'
+//     + '</div>'
+//     + '</div>'
+//     + '</div>'
+//     + '</div>'
+//   );
 
-    var user = firebase.auth().currentUser;
+// }
 
-    if (user != null) {
-      alert(firebase.auth().currentUser.uid);
-      var idUser = firebase.auth().currentUser.uid;
-      db.collection('notelist').onSnapshot(snapshot => {
-        snapshot.docChanges().forEach(change => {
-          if (change.type === 'added' && change.doc.data().userID === idUser) {
-            $("#name_notes").append(
-              '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" ><div data-toggle="modal" data-target="#' + change.doc.data().name.replace(/\s+/g, '') + '" class="card border-info mb-3" style="cursor: pointer; max-width: 30rem;"><div class="card-header"><h6 class="card-title"></h6></div><div class="card-body text-center"><p class="card-text" id="lblName' + change.doc.data().name.replace(/\s+/g, '') + '">' + change.doc.data().name + '</p> </div> <div class="card-footer text-center"> </div></div></div><div class="modal" id="' + change.doc.data().name.replace(/\s+/g, '') + '"><div class="modal-dialog modal-lg"><div class="modal-content"><!-- Modal Header --><div class="modal-header"><h4 class="modal-title">' + change.doc.data().name + '</h4><div><small>' + change.doc.data().location + '</small><br><small id="timeyourpost">'+change.doc.data().timepost+'</small></div> </div><!-- Modal body --><div class="modal-body"><pre>' + change.doc.data().content + '</pre><br><br><div><img id="imgNote' + change.doc.data().name + '" style="width: 60% ; height: 100%; margin-left: 25%"></div><br><!-- Modal footer --><div class="modal-footer"><button type="button" style="width: 70px;height: 50px;" class="btn btn-outline-info">Sửa</button><button type="button" style="width: 70px;height: 50px;" class="btn btn-outline-info" data-toggle="modal" onclick = "deleteNote(\'' + change.doc.data().name.replace(/\s+/g, '') + '\')">Xóa</button>'
-              + '<button type="button" style="width: 70px;height: 50px;" class="btn btn-outline-info" data-dismiss="modal">Thoát</button></div></div></div></div>'
-              + '<div class="modal fade" id="XoaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'
-              + '<div class="modal-dialog" role="document">'
-              + '<div class="modal-content">'
-              + '<div class="modal-header">'
-              + '<h5 class="modal-title" id="exampleModalLabel">Delete</h5>'
-              + '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'
-              + '<span class="material-icons" aria-hidden="true">help_outline</span>'
-              + '</button>'
-              + '</div>'
-              + '<div class="modal-body"> <i class="material-icons"  >delete_forever</i>'
-              + 'Do you really  want to delete?'
-              + '</div>'
-              + '<div class="modal-footer">'
-              + '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
-              + '<button type="button" class="btn btn-primary" >Delete</button>'
-              + '</div>'
-              + '</div>'
-              + '</div>'
-              + '</div>'
-            );
-            var imgNote = document.getElementById("imgNote" + change.doc.data().name);
-            storageRef.child('NoteImage/' + change.doc.data().image + '').getDownloadURL().then(function (url) {
-              imgNote.src = url;
-            }).catch(function (error) {
+
+
+function Category_select(category) {
+  var options = category.children;
+  for (var i = 0; i < options.length; i++) {
+    if (options[i].selected) {
+      var category_selected = options[i].value;
+      console.log($('#load').load('show_not.html'));
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+
+          var user = firebase.auth().currentUser;
+
+          if (user != null) {
+            var idUser = firebase.auth().currentUser.uid;
+            // var listcategory = document.getElementById("ListNotes_category").value;
+            db.collection('notelist').where('category', '==', category_selected).orderBy('name').get().then(snapshot => {
+              snapshot.docs.forEach(doc => {
+                if (doc.data().userID == idUser) {
+                  $("#name_notes").append(
+                    '<div id="notes" data-id="' + doc.id + '" class="col-xs-12 col-sm-6 col-md-6 col-lg-4" ><div data-toggle="modal" data-target="#' + doc.data().name.replace(/\s+/g, '') + '" class="card border-info mb-3" style="cursor: pointer; max-width: 30rem;"><div class="card-header"><h6 class="card-title"></h6></div><div class="card-body text-center"><p class="card-text" id="lblName' + doc.data().name.replace(/\s+/g, '') + '">' + doc.data().name + '</p> </div> <div class="card-footer text-center"> <button type="button" id="delete_notes" class="btn btn-outline-info" style="width:100px;" onclick="deleteNote()">Delete</button> </div></div></div><div class="modal" id="' + doc.data().name.replace(/\s+/g, '') + '"><div class="modal-dialog modal-lg"><div class="modal-content"><!-- Modal Header --><div class="modal-header"><h4 class="modal-title">' + doc.data().name + '</h4><div><small>' + doc.data().location + '</small><br><small id="timeyourpost">' + doc.data().timepost + '</small></div> </div><!-- Modal body --><div class="modal-body"><pre>' + doc.data().content + '</pre><br><br><div><img id="imgNote' + doc.data().name + '" style="width: 60% ; height: 100%; margin-left: 25%"></div><br><!-- Modal footer --><div class="modal-footer"><button type="button" style="width: 70px;height: 50px;" class="btn btn-outline-info">Sửa</button><button type="button" style="width: 70px;height: 50px;" class="btn btn-outline-info" data-toggle="modal" onclick = "deleteNote()">Xóa</button>'
+                    + '<button type="button" style="width: 70px;height: 50px;" class="btn btn-outline-info" data-dismiss="modal">Thoát</button></div></div></div></div>'
+                    + '<div class="modal fade" id="XoaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'
+                    + '<div class="modal-dialog" role="document">'
+                    + '<div class="modal-content">'
+                    + '<div class="modal-header">'
+                    + '<h5 class="modal-title" id="exampleModalLabel">Delete</h5>'
+                    + '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'
+                    + '<span class="material-icons" aria-hidden="true">help_outline</span>'
+                    + '</button>'
+                    + '</div>'
+                    + '<div class="modal-body"> <i class="material-icons"  >delete_forever</i>'
+                    + 'Do you really  want to delete?'
+                    + '</div>'
+                    + '<div class="modal-footer">'
+                    + '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
+                    + '<button type="button" class="btn btn-primary" >Delete</button>'
+                    + '</div>'
+
+                    + '</div>'
+                    + '</div>'
+                    + '</div>'
+                  );
+                  var imgNote = document.getElementById("imgNote" + doc.data().name);
+                  storageRef.child('NoteImage/' + doc.data().image + '').getDownloadURL().then(function (url) {
+                    imgNote.src = url;
+                  }).catch(function (error) {
+                  });
+                }
+              });
             });
           }
-          if (change.type === 'removed') {
-          }
-        });
+        }
       });
-
     }
   }
-});
-// real-time listener
-
-
-// db.collection('category').onSnapshot(snapshot => {
-//   snapshot.docChanges().forEach(change => {
-//     if(change.type === 'added'){
-//       $("#categoryList").append('<li><table><tr><td><a href="#">'+change.doc.data().category+'</a></td><td></td></tr></table></li>');
-//     }
-//   });
-// });
+}
 var NewNotes_name = document.getElementById("NewNotes_name");
 var NewNotes_location = document.getElementById("location_Name");
 var NewNotes_content = document.getElementById("NewNotes_content");
@@ -124,22 +124,22 @@ function deleteCategory() {
     alert('Comments are required to continue!');
 
   }
-
-  db.collection("category").doc(document.getElementById("category_Name").value + firebase.auth().currentUser.uid).delete();
-
+  else {
+    db.collection("category").doc(document.getElementById("category_Name").value + firebase.auth().currentUser.uid).delete();
+  }
 }
 
-function deleteCategoryInSelect() {
-  // var result = confirm("Do you want to continue?");
-  // if(result)  {
-  // alert("OK Next lesson!");
-  db.collection("category").doc(document.getElementById("ListNotes_category1").value + firebase.auth().currentUser.uid).delete();
-  // location.reload();
-  // } else {
-  // alert("Bye!");
-  // }
+// function deleteCategoryInSelect() {
+//   // var result = confirm("Do you want to continue?");
+//   // if(result)  {
+//   // alert("OK Next lesson!");
+//   db.collection("category").doc(document.getElementById("ListNotes_category1").value + firebase.auth().currentUser.uid).delete();
+//   // location.reload();
+//   // } else {
+//   // alert("Bye!");
+//   // }
 
-}
+// }
 
 function checkTime(i) {
   if (i < 10) {
@@ -147,7 +147,16 @@ function checkTime(i) {
   }
   return i;
 }
+document.getElementById('NewNotes_checkTime').onclick = function (e) {
+  var check = false;
+  if (this.checked) {
+    document.getElementById('notification').style.display = 'block';
+  }
+  else {
+    document.getElementById('notification').style.display = 'none';
+  }
 
+};
 
 function writeNotesData() {
   var today = new Date();
@@ -168,6 +177,7 @@ function writeNotesData() {
   timepost = DD + "/" + MM + "/" + YYYY + " " + h + ":" + m;
   // alert(timepost)
 
+
   var NewNotes_name_text = NewNotes_name.value;
   var NewNotes_location_text = NewNotes_location.value;
   var NewNotes_name_text_value = NewNotes_name_text.trim();
@@ -176,15 +186,17 @@ function writeNotesData() {
     alert('Comments are required to continue!');
   }
   else {
-    var n =0;
+    var n = 0;
     db.collection('notelist').add({
       name: document.getElementById("NewNotes_name").value,
       location: document.getElementById("location_Name").value,
       timepost: timepost,
+      // timenotification: document.getElementById("date_no").value,
       content: document.getElementById("NewNotes_content").value,
       category: document.getElementById("ListNotes_category").value,
       userID: firebase.auth().currentUser.uid,
       image: temp,
+
 
 
     })
@@ -243,13 +255,19 @@ function saveIn() {
   })
 }
 //delete note by select list
-function deleteNote(name) {
+function deleteNote() {
   // var result = confirm("Do you want to continue?");
 
   // if(result)  {  
   // alert("OK Next lesson!");
-  db.collection('notelist').doc(document.getElementById("lblName" + name).innerText).delete();
-  location.reload();
+  // e.stopPropagation();
+  var id = document.getElementById("notes").getAttribute("data-id");
+  db.collection('notelist').doc(id).delete();
+  console.log($('#load').load('show_not.html'));
+
+  // alert(x);
+  // db.collection('notelist').doc(document.getElementById(x).innerText).delete();
+  // location.reload();
   // } else {
   // alert("Bye!");    
   // } 

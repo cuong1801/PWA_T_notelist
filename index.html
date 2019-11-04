@@ -46,9 +46,9 @@
         <div class="smartphone-menu-trigger"></div>
         <header class="avatar">
             <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
-            id="profile-image1">
+                id="profile-image1">
             <h2 id="full_Name"></h2>
-              <!-- <h4 style="color:#00b1b1;" ></h4></span> -->
+            <!-- <h4 style="color:#00b1b1;" ></h4></span> -->
         </header>
         <ul>
 
@@ -123,11 +123,18 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-8">
                         <div class="form-check">
-                            <input class="" type="checkbox" id="gridCheck NewNotes_checkTime">
+                            <input class="" type="checkbox" id="NewNotes_checkTime">
                             <label for="thongbao">Notification</label>
-                            <input type="date" class="form-control" name="bday">
+                            <div id="notification" class="row" style="display: none;">
+                                <div class="col-md-6">
+                                    <input id="day_no" type="date" class="form-control " name="bday">
+                                </div>
+                                <div class="col-md-4">
+                                    <input id="time_no" type="time" class="form-control " name="bday">
+                                </div>
+                            </div>
                         </div>
 
 
@@ -147,6 +154,9 @@
             </div>
         </div>
     </div>
+    <!-- end add note -->
+
+
     <!--User Profile modal-->
     <div class="modal" id="userProfileModal">
         <div class="container">
@@ -325,7 +335,7 @@
                                         <div>
                                             <select id="ListNotes_category"
                                                 class="form-control cursor form-select select-category"
-                                                style="height: calc(3.25rem + 2px);">
+                                                style="height: calc(3.25rem + 2px);" onchange="Category_select(this)">
                                                 <option selected>No Categories</option>
                                             </select>
                                         </div>
@@ -352,9 +362,30 @@
                             <hr>
                         </div>
                     </div>
-                    <div id="name_notes" class="row">
+                    <div id="load" class="row">
+                        <!-- <div class="col-md-8">
+                            <div id="name_notes" class="row">
 
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <h1 class="title-task">Your Task</h1>
+
+                            <div class="content">
+
+                                <form id="add-cafe-form">
+                                    <input type="text" name="name" placeholder="Cafe name">
+                                    <input type="text" name="city" placeholder="Cafe city">
+                                    <button>Add Cafe</button>
+                                </form>
+
+                                <ul id="cafe-list"></ul>
+
+                            </div>
+                        </div> -->
                     </div>
+
 
                 </div>
             </div>
@@ -374,7 +405,7 @@
         </div>
         <div class="col-md-2">
             <div data-toggle="tooltip" data-placement="left" id="add" class="add_note">
-                <!--button trở về đầu trang-->
+                <!--button add new post-->
 
                 <button class="btn btn-info btn-size-add-del material-icons" data-toggle="modal"
                     data-target="#myModal">post_add</button>
@@ -383,6 +414,8 @@
 
             </div>
         </div>
+
+
     </div>
     <!-- </div> -->
 
@@ -416,7 +449,7 @@
         const db = firebase.firestore();
     </script>
     <!-- <script src="https://www.gstatic.com/firebase/init.js"></script> -->
-    <script src="/app.js"></script>
+    <!-- <script src="/app.js"></script> -->
     <script src="/db.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -431,11 +464,13 @@
     <link rel="stylesheet" href="homepage/css/background.css">
     <link rel="stylesheet" href="homepage/css/show-category.css">
     <link rel="stylesheet" href="homepage/css/add-note.css">
+    <link rel="stylesheet" href="task/task.css">
     <!-- <link rel="stylesheet" href="assets/css/menu.css"> -->
     <script src="assets/js/menu.js"></script>
     <script src="assets/moment.js"></script>
     <script src="assets/moment-with-locales.js"></script>
     <script src="NewNote/js/alarm.js"></script>
+    <script src="task/task.js"></script>
 
 </body>
 

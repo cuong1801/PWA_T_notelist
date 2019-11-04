@@ -25,8 +25,8 @@ $(document).ready(function(){
                 db.collection('category').onSnapshot(snapshot => {
                     snapshot.docChanges().forEach(change => {
                         if(change.type === 'added'&&change.doc.data().userID===idUser){
-                        $("#ListNotes_category").append('<option>'+change.doc.data().category+'</option>');
-                        $("#ListNotes_category1").append('<option>'+change.doc.data().category+'</option>');
+                        $("#ListNotes_category").append('<option onclick="#load-du-lieu()" >'+change.doc.data().category+'</option>');
+                        $("#ListNotes_category1").append('<option ">'+change.doc.data().category+'</option>');
                         }
                     });
                 });

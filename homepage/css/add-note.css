@@ -14,6 +14,21 @@
   opacity: 1;
   }
 
+  .add_task{
+    position: fixed;
+    top: auto;
+    left: auto;
+    right: 138px;
+    bottom: 15px;
+    font-size: 32px;
+    opacity: 0.8;
+    z-index: 9999;
+    cursor: pointer;
+}
+
+  .add_task:hover {
+  opacity: 1;
+  }
 
 
   /* back to top */
